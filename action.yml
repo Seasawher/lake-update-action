@@ -1,0 +1,14 @@
+name: 'Hello Docker アクション'
+description: '誰かに挨拶をして、その時間を返す'
+inputs:
+  who-to-greet:
+    description: '誰に挨拶するか'
+    required: true
+outputs:
+  time:
+    description: '挨拶した時間'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.who-to-greet }}

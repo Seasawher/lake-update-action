@@ -1,0 +1,4 @@
+module
+
+public def main : IO Unit := do
+  IO.println "Hello, World!"
