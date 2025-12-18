@@ -1,0 +1,45 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  current-lake:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v5
+
+      # lake_package_directoryの入力欄を空にした場合のテスト
+      # この場合、デフォルト値としてカレントディレクトリが使われるはず
+      - name: Run Action
+        uses: ./
+        id: test-step
+
+      - name: assert output
+        if: steps.test-step.outputs.lake_package_exists != 'true'
+        run: exit 1
+
+  failure-nolean:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v5
+
+      # 明らかにLeanパッケージではないディレクトリを指定してみて、
+      # きちんとfalseが返ってくることを確認するテスト
+      - name: Run Action
+        uses: ./
+        id: test-step
+        with:
+          lake_package_directory: './Test/Failure/NoLean'
+
+      - name: assert output
+        if: steps.test-step.outputs.lake_package_exists != 'false'
+        run: exit 1

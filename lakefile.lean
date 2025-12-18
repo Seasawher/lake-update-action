@@ -3,7 +3,6 @@ open Lake DSL
 
 package "Action" where
   leanOptions := #[
-    ⟨`linter.missingDocs, true⟩
   ]
 
 @[default_target]

@@ -1,14 +1,18 @@
-name: 'Hello アクション'
-description: '誰かに挨拶をして、その時間を返す'
+name: Lake update Action
+description: LeanプロジェクトにおいてLeanのバージョンおよび依存しているライブラリのバージョンを更新します。
 inputs:
-  who-to-greet:
-    description: '誰に挨拶するか'
-    required: true
+  lake_package_directory:
+    description: 更新するべきLakeパッケージが存在するディレクトリ。
+    required: false
+    default: "."
 outputs:
-  who-was-greeted:
-    description: '誰に挨拶したか、敬称付きで返す'
+  lake_package_exists:
+    description: |
+      更新対象のLakeパッケージが存在したかどうか。
+      true か false の２通りの値をとる。
+
 runs:
   using: 'docker'
   image: 'Dockerfile'
   env:
-    INPUT_WHO_TO_GREET: ${{ inputs.who-to-greet }}
+    INPUT_LAKE_PACKAGE_DIRECTORY: ${{ inputs.lake_package_directory }}

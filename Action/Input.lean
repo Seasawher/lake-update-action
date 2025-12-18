@@ -2,11 +2,15 @@ module
 
 namespace Input
 
-/-- `who-to-greet`という入力を取得する -/
-public protected def whoToGreet : IO String := do
-  match (← IO.getEnv "INPUT_WHO_TO_GREET") with
+/-- 指定された名前の入力を取得する -/
+public protected def get (name : String) : IO String := do
+  match (← IO.getEnv (s!"INPUT_{name.toUpper}")) with
   | some input => return input
   | none =>
-    throw <| IO.userError "'who-to-greet'が渡されていません。"
+    throw <| IO.userError s!"入力 '{name}' が渡されていません。"
+
+public protected def lakePackageDirectory : IO System.FilePath := do
+  let dirStr ← Input.get "lake_package_directory"
+  return System.FilePath.mk dirStr
 
 end Input
