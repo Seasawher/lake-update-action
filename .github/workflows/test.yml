@@ -38,7 +38,7 @@ jobs:
         uses: ./
         id: test-step
         with:
-          lake_package_directory: './Test/Failure/NoLean'
+          lake_package_directory: './Test/NoLean'
         continue-on-error: true
 
       - name: assert output

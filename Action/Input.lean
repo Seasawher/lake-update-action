@@ -9,6 +9,7 @@ public protected def get (name : String) : IO String := do
   | none =>
     throw <| IO.userError s!"入力 '{name}' が渡されていません。"
 
+/-- 更新するべきLakeパッケージが存在するディレクトリ。 -/
 public protected def lakePackageDirectory : IO System.FilePath := do
   let dirStr ← Input.get "lake_package_directory"
   return System.FilePath.mk dirStr
