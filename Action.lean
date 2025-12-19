@@ -1,16 +1,12 @@
 module
 
-import Action.Input
-import Action.Output
+import Action.DetectLakePackage
 
 /-- エントリーポイント -/
 public def main (_ : List String) : IO UInt32 := do
-  let lakePackageDirectory ← Input.lakePackageDirectory
-
-  let toolchainPath : System.FilePath := lakePackageDirectory / "lean-toolchain"
-
-  let lakePackageExists ← toolchainPath.pathExists
-
-  setOutput "lake_package_exists" (toString lakePackageExists)
+  let isLakePackage ← detectLakePackage
+  if ! isLakePackage then
+    IO.println "指定されたディレクトリはlakeパッケージではありません。"
+    return 1
 
   return 0

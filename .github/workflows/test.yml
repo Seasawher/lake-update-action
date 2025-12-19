@@ -39,6 +39,7 @@ jobs:
         id: test-step
         with:
           lake_package_directory: './Test/Failure/NoLean'
+        continue-on-error: true
 
       - name: assert output
         if: steps.test-step.outputs.lake_package_exists != 'false'
