@@ -28,7 +28,7 @@ jobs:
         run: exit 1
 
   failure:
-    name: 故意にlake buildが失敗するパッケージでlake buildが失敗することのテスト
+    name: 故意にlake buildが失敗するように作ったパッケージでのテスト
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
