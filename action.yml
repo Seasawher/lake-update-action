@@ -14,5 +14,5 @@ outputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  env:
-    INPUT_LAKE_PACKAGE_DIRECTORY: ${{ inputs.lake_package_directory }}
+  args:
+    - ${{ inputs.lake_package_directory }}
