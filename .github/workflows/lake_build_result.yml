@@ -1,0 +1,45 @@
+name: Test for lake_build_result
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  plain:
+    name: lake init 直後のパッケージでlake buildが成功することのテスト
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v5
+
+      - name: Run Action
+        uses: ./
+        id: test-step
+        with:
+          lake_package_directory: './Test/Plain'
+
+      - name: assert output
+        if: steps.test-step.outputs.lake_build_result != 'success'
+        run: exit 1
+
+  failure:
+    name: 故意にlake buildが失敗するパッケージでlake buildが失敗することのテスト
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v5
+
+      - name: Run Action
+        uses: ./
+        id: test-step
+        with:
+          lake_package_directory: './Test/BuildFail'
+
+      - name: assert output
+        if: steps.test-step.outputs.lake_build_result != 'failure'
+        run: exit 1

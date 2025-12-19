@@ -9,7 +9,11 @@ outputs:
   lake_package_exists:
     description: |
       更新対象のLakeパッケージが存在したかどうか。
-      true か false の２通りの値をとる。
+      "true" か "false" の２通りの値をとる。
+  lake_build_result:
+    description: |
+      lake build コマンドの実行結果。
+      "success" か "failure" の２通りの値をとる。
 
 runs:
   using: 'docker'

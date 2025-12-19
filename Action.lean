@@ -1,6 +1,9 @@
 module
 
 import Action.DetectLakePackage
+import Action.Input
+import Action.RunCmd
+import Action.TryBuild
 
 /-- エントリーポイント -/
 public def main (_ : List String) : IO UInt32 := do
@@ -8,5 +11,7 @@ public def main (_ : List String) : IO UInt32 := do
   if ! isLakePackage then
     IO.println "指定されたディレクトリはlakeパッケージではありません。"
     return 1
+
+  let _ ← tryBuild
 
   return 0
