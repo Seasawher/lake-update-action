@@ -26,4 +26,6 @@ RUN curl https://elan.lean-lang.org/elan-init.sh -sSf | sh -s -- -y --default-to
 # elan のパスを通す
 ENV PATH="/root/.elan/bin:${PATH}"
 
-ENTRYPOINT ["lake", "exe", "action"]
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
