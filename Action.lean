@@ -16,9 +16,8 @@ public def main (_ : List String) : IO UInt32 := do
   if buildResult.isFailure then
     IO.println "lakeパッケージのビルドが失敗しました。"
 
-    -- gh コマンドのバージョン確認
-    -- これは単なるインストール確認なので、後で削除する
-    let _ ← runCmd "gh --version" "."
+    -- gh コマンドでイシューを作成できるかどうか確認する
+    let _ ← runCmd "gh issue create --title 'Test' --body 'this is test'" none
     return 0
 
   return 0

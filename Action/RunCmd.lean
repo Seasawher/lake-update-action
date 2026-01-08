@@ -13,7 +13,7 @@ public def runCmd (command : String) (cwd : Option FilePath) (stdin : Option Str
     (input? := stdin)
 
   unless out.exitCode = 0 do
-    throw <| IO.userError s!"Failed to execute: {command}\n{out.stderr}"
+    throw <| IO.userError out.stderr
 
   let output := out.stdout.trimAscii.copy
   if ! output.isEmpty then
