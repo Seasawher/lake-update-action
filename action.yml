@@ -6,10 +6,6 @@ inputs:
     description: 更新するべきLakeパッケージが存在するディレクトリ。
     required: false
     default: "."
-  github_token:
-    description: コミット・イシューの投稿・PRの作成に使用されるGitHubトークン。
-    required: false
-    default: ${{ github.token }}
 
 outputs:
   lake_package_exists:
@@ -26,6 +22,3 @@ runs:
   image: 'Dockerfile'
   args:
     - ${{ inputs.lake_package_directory }}
-    - ${{ inputs.github_token }}
-  env:
-    GITHUB_TOKEN: ${{ inputs.github_token }}
