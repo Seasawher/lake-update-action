@@ -17,7 +17,7 @@ public def main (_ : List String) : IO UInt32 := do
     IO.println "lakeパッケージのビルドが失敗しました。"
 
     -- gh コマンドでイシューを作成できるかどうか確認する
-    let _ ← runCmd "gh issue create --title 'Test' --body 'this is test'" none
+    let _ ← runCmd #["gh", "issue", "create", "--title", "Test", "--body", "this is test"] none
     return 0
 
   return 0

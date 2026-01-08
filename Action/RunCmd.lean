@@ -3,11 +3,10 @@ module
 open IO Process System
 
 /-- コマンドを実行するための補助的な関数 -/
-public def runCmd (command : String) (cwd : Option FilePath) (stdin : Option String := none) :
+public def runCmd (command : Array String) (cwd : Option FilePath) (stdin : Option String := none) :
     IO String := do
-  let cmdList := command.splitOn " "
-  let cmd := cmdList.head!
-  let args := cmdList.tail |>.toArray
+  let cmd := command[0]!
+  let args := command.drop 1
   let out ← IO.Process.output
     (args := {cmd := cmd, args := args, cwd := cwd})
     (input? := stdin)
@@ -15,7 +14,7 @@ public def runCmd (command : String) (cwd : Option FilePath) (stdin : Option Str
   unless out.exitCode = 0 do
     throw <| IO.userError out.stderr
 
-  let output := out.stdout.trimAscii.copy
+  let output := out.stdout
   if ! output.isEmpty then
-    IO.println output
+    IO.print output
   return output
