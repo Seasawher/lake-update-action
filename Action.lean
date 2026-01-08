@@ -14,4 +14,7 @@ public def main (_ : List String) : IO UInt32 := do
 
   let _ ← tryBuild
 
+  -- gh コマンドがインストールできているか確認する
+  let _ ← runCmd #["gh", "--version"] none
+
   return 0

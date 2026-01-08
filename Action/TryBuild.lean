@@ -20,7 +20,7 @@ public def BuildResult.isFailure : BuildResult → Bool
 public def tryBuild : IO BuildResult := do
   let lakePackageDirectory ← Input.lakePackageDirectory
   try
-    let _ ← runCmd "lake build" (cwd := lakePackageDirectory)
+    let _ ← runCmd #["lake", "build"] (cwd := lakePackageDirectory)
     setOutput "lake_build_result" "success"
     return BuildResult.success
   catch e =>

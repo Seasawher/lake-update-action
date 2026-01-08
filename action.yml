@@ -1,19 +1,21 @@
 name: Lake update Action
 description: LeanプロジェクトにおいてLeanのバージョンおよび依存しているライブラリのバージョンを更新します。
+
 inputs:
   lake_package_directory:
     description: 更新するべきLakeパッケージが存在するディレクトリ。
     required: false
     default: "."
+
 outputs:
   lake_package_exists:
     description: |
       更新対象のLakeパッケージが存在したかどうか。
-      "true" か "false" の２通りの値をとる。
+      取りうる値: "true", "false"
   lake_build_result:
     description: |
       lake build コマンドの実行結果。
-      "success" か "failure" の２通りの値をとる。
+      取りうる値: "success", "failure"
 
 runs:
   using: 'docker'
