@@ -12,6 +12,13 @@ public def main (_ : List String) : IO UInt32 := do
     IO.println "指定されたディレクトリはlakeパッケージではありません。"
     return 1
 
-  let _ ← tryBuild
+  let buildResult ← tryBuild
+  if buildResult.isFailure then
+    IO.println "lakeパッケージのビルドが失敗しました。"
+
+    -- gh コマンドのバージョン確認
+    -- これは単なるインストール確認なので、後で削除する
+    let _ ← runCmd "gh --version" "."
+    return 0
 
   return 0
