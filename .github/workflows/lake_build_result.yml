@@ -39,6 +39,8 @@ jobs:
         id: test-step
         with:
           lake_package_directory: './Test/BuildFail'
+          # issue 作成は行わないようにする
+          on_update_fails: 'silent'
 
       - name: assert output
         if: steps.test-step.outputs.lake_build_result != 'failure'
