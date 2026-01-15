@@ -6,6 +6,11 @@ inputs:
     description: 更新するべきLakeパッケージが存在するディレクトリ。
     required: false
     default: "."
+  token:
+    description: |
+      gh コマンドを使用するための GitHub トークン。
+    required: false
+    default: ${{ github.token }}
 
 outputs:
   lake_package_exists:
@@ -22,3 +27,5 @@ runs:
   image: 'Dockerfile'
   args:
     - ${{ inputs.lake_package_directory }}
+  env:
+    GH_TOKEN: ${{ inputs.token }}
