@@ -7,8 +7,6 @@ import Action.RunCmd
 import Action.TryBuild
 import Action.Notify
 
-def issueTitle := "ビルド失敗"
-
 /-- エントリーポイント -/
 public def main (_ : List String) : IO UInt32 := do
   let isLakePackage ← detectLakePackage
