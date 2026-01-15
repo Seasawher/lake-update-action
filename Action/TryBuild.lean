@@ -16,11 +16,16 @@ public def BuildResult.isFailure : BuildResult → Bool
   | .success => false
   | .failure _ => true
 
+/-- ビルドが成功したかどうか -/
+public def BuildResult.isSuccess : BuildResult → Bool
+  | .success => true
+  | .failure _ => false
+
 /-- `lake build` を試みる -/
 public def tryBuild : IO BuildResult := do
-  let lakePackageDirectory ← Input.lakePackageDirectory
+  let dir ← Input.lake_package_directory
   try
-    let _ ← runCmd #["lake", "build"] (cwd := lakePackageDirectory)
+    let _ ← runCmd #["lake", "build"] (cwd := dir)
     setOutput "lake_build_result" "success"
     return BuildResult.success
   catch e =>

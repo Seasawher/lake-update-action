@@ -6,6 +6,20 @@ inputs:
     description: 更新するべきLakeパッケージが存在するディレクトリ。
     required: false
     default: "."
+  on_update_fails:
+    description: |
+      更新後のチェックが失敗した場合にどのようにしてユーザに通知するか。
+      取りうる値:
+      * issue: 更新失敗を通知する issue を作成する。
+      * silent: 通知しない。
+    required: false
+    default: "issue"
+  token:
+    description: |
+      gh コマンドを使用するための GitHub トークン。
+      基本的にデフォルト値のままで問題ない。
+    required: false
+    default: ${{ github.token }}
 
 outputs:
   lake_package_exists:
@@ -22,3 +36,6 @@ runs:
   image: 'Dockerfile'
   args:
     - ${{ inputs.lake_package_directory }}
+    - ${{ inputs.on_update_fails }}
+  env:
+    GH_TOKEN: ${{ inputs.token }}
